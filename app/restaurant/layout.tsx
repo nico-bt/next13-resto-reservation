@@ -1,4 +1,9 @@
+import { Metadata } from "next"
 import Header from "./[slug]/components/Header"
+
+export const metadata: Metadata = {
+  title: "Nombre del Resto",
+}
 
 export default function RestaurantLayout({ children }: { children: React.ReactNode }) {
   return (
