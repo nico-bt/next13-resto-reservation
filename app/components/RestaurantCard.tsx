@@ -1,20 +1,12 @@
 import Link from "next/link"
-import { Cuisine, Location, PRICE, Restaurant } from "@prisma/client"
 import Price from "./Price"
+import { RestaurantCardType } from "../page"
 
-interface RestaurantCardType {
-  restaurant: {
-    id: number
-    name: string
-    main_image: string
-    cuisine: Cuisine
-    location: Location
-    price: PRICE
-    slug: string
-  }
+interface Props {
+  restaurant: RestaurantCardType
 }
 
-function RestaurantCard({ restaurant }: RestaurantCardType) {
+function RestaurantCard({ restaurant }: Props) {
   return (
     <div className="w-64 h-72 m-3 rounded overflow-hidden border cursor-pointer">
       <Link href={`restaurant/${restaurant.slug}`}>
