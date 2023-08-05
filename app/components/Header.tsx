@@ -12,8 +12,7 @@ function Header() {
       <div className="text-center mt-10">
         <h1 className="text-white text-5xl font-bold mb-2">Find your table for any occasion</h1>
 
-        {/* SEARCH BAR */}
-        <div className="text-left text-lg py-3 m-auto flex justify-center">
+        <form className="text-left text-lg py-3 m-auto flex justify-center">
           <input
             className="rounded  mr-3 p-2 w-[450px]"
             type="text"
@@ -22,16 +21,18 @@ function Header() {
             onChange={(e) => setLocation(e.target.value)}
           />
           <button
+            type="submit"
             className="rounded bg-red-600 px-9 py-2 text-white"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault()
               if (location === "") return
-              router.push("/search")
+              router.push(`/search/?city=${location}`)
+              setLocation("")
             }}
           >
             Let's go
           </button>
-        </div>
-        {/* SEARCH BAR */}
+        </form>
       </div>
     </div>
   )
