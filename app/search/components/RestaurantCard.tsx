@@ -1,5 +1,6 @@
 import Price from "@/app/components/Price"
-import { Cuisine, Location, PRICE } from "@prisma/client"
+import { calculateReviewRatingAverage } from "@/utils/calculateReviewsAverage"
+import { Cuisine, Location, PRICE, Review } from "@prisma/client"
 import Link from "next/link"
 
 interface restaurantType {
@@ -10,6 +11,7 @@ interface restaurantType {
   location: Location
   cuisine: Cuisine
   main_image: string
+  reviews: Review[]
 }
 
 function RestaurantCard({ resto }: { resto: restaurantType }) {
@@ -20,7 +22,9 @@ function RestaurantCard({ resto }: { resto: restaurantType }) {
         <h2 className="text-3xl">{resto.name}</h2>
         <div className="flex items-start">
           <div className="flex mb-2">*****</div>
-          <p className="ml-2 text-sm">Awesome</p>
+          <p className="ml-2 text-sm">
+            Rating: {Number(calculateReviewRatingAverage(resto.reviews).toFixed(1))}
+          </p>
         </div>
         <div className="mb-9">
           <div className="font-light flex text-reg">

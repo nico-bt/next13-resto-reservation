@@ -1,13 +1,13 @@
-import { PRICE, PrismaClient } from "@prisma/client"
+import { PRICE, PrismaClient, Review } from "@prisma/client"
 import Header from "./components/Header"
 import RestaurantCard from "./components/RestaurantCard"
 import SearchSideBar from "./components/SearchSideBar"
-import { equal } from "assert"
 
 interface searchParams {
   city?: string
   cuisine?: string
   price?: PRICE
+  reviews: Review[]
 }
 
 const prisma = new PrismaClient()
@@ -39,6 +39,7 @@ const fetchRestaurantsByQueryParams = async (searchParams: searchParams) => {
     location: true,
     cuisine: true,
     main_image: true,
+    reviews: true,
   }
 
   const restaurants = await prisma.restaurant.findMany({

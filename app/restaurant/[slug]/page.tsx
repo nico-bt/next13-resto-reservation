@@ -14,6 +14,18 @@ const fetchRestaurantBySlug = async (slug: string) => {
     where: {
       slug: slug,
     },
+    select: {
+      id: true,
+      name: true,
+      main_image: true,
+      images: true,
+      cuisine: true,
+      location: true,
+      price: true,
+      description: true,
+      slug: true,
+      reviews: true,
+    },
   })
 
   if (!restaurant) throw new Error("Restaurant not found")
@@ -29,10 +41,10 @@ async function RestaurantDetails({ params }: { params: { slug: string } }) {
       <div className="bg-white w-[70%] rounded p-3 shadow">
         <RestaurantNavbar slug={params.slug} />
         <Title name={restaurant.name} />
-        <Rating price={restaurant.price} />
+        <Rating price={restaurant.price} reviews={restaurant.reviews} />
         <Description description={restaurant.description} />
         <Images images={restaurant.images} />
-        <Reviews />
+        <Reviews reviews={restaurant.reviews} />
       </div>
 
       <div className="w-[27%] relative text-reg">
