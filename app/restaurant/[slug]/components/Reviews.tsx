@@ -1,17 +1,20 @@
+import Stars from "@/app/components/Stars"
 import { Review } from "@prisma/client"
 
 export default function Reviews({ reviews }: { reviews: Review[] }) {
   return (
     <div>
       <h1 className="font-bold text-3xl mt-10 mb-7 borber-b pb-5">
-        What {reviews.length} {reviews.length === 1 ? "person is saying" : "people are saying"}
+        {reviews.length === 0 && "No reviews yet"}
+
+        {reviews.length >= 1 &&
+          (reviews.length === 1
+            ? "What 1 person is saying"
+            : `What ${reviews.length} people are saying`)}
       </h1>
       <div>
-        {reviews.length ? (
-          reviews.map((review) => <ReviewCard review={review} key={review.id} />)
-        ) : (
-          <p>No Reviews yet</p>
-        )}
+        {reviews.length >= 1 &&
+          reviews.map((review) => <ReviewCard review={review} key={review.id} />)}
       </div>
     </div>
   )
@@ -28,13 +31,11 @@ const ReviewCard = ({ review }: { review: Review }) => {
             </h2>
           </div>
           <p className="text-center">
-            {review.first_name} {review.last_name}{" "}
+            {review.first_name} {review.last_name}
           </p>
         </div>
         <div className="ml-10 w-5/6">
-          <div className="flex items-center">
-            <div className="flex mr-5">*****</div>
-          </div>
+          <Stars reviews={[review]} />
           <div className="mt-5">
             <p className="text-lg font-light">{review.text}</p>
           </div>
