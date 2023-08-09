@@ -8,9 +8,6 @@ function Header() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (location === "") {
-      return
-    }
     router.push(`/search/?city=${location}`)
     setLocation("")
   }
