@@ -12,21 +12,21 @@ export default function loading() {
         <div className="w-5/6">
           <div className="border-b flex pb-5 ml-6">
             <div className="w-44 h-36 rounded mt-1 bg-slate-300"> </div>
-            <div className="pl-5">
+            <div className="pl-5 w-60">
+              <div className="mb-2 bg-slate-300 text-slate-400 text-center">...</div>
+            </div>
+          </div>
+
+          <div className="border-b flex pb-5 ml-6">
+            <div className="w-44 h-36 rounded mt-1 bg-slate-300"> </div>
+            <div className="pl-5 w-60">
               <div className="mb-2 w-60 bg-slate-300 text-slate-400 w-full text-center">...</div>
             </div>
           </div>
 
           <div className="border-b flex pb-5 ml-6">
             <div className="w-44 h-36 rounded mt-1 bg-slate-300"> </div>
-            <div className="pl-5">
-              <div className="mb-2 w-60 bg-slate-300 text-slate-400 w-full text-center">...</div>
-            </div>
-          </div>
-
-          <div className="border-b flex pb-5 ml-6">
-            <div className="w-44 h-36 rounded mt-1 bg-slate-300"> </div>
-            <div className="pl-5">
+            <div className="pl-5 w-60">
               <div className="mb-2 w-60 bg-slate-300 text-slate-400 w-full text-center">...</div>
             </div>
           </div>
