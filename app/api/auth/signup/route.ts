@@ -1,10 +1,14 @@
 import { PrismaClient } from "@prisma/client"
 import { NextRequest, NextResponse } from "next/server"
 import validator from "validator"
+import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { firstName, lastName, email, phone, city, password } = await req.json()
 
+  // Validate user input
+  //----------------------------------------------------------
   const errors: string[] = []
 
   const validationSchema = [
@@ -50,6 +54,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json({ errorMessage: errors[0] }, { status: 400 })
   }
 
+  // Check if user is already registered
+  //----------------------------------------------------------
   const prisma = new PrismaClient()
   const userExists = await prisma.user.findUnique({ where: { email: email } })
 
@@ -57,5 +63,28 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json({ errorMessage: "User already registered" }, { status: 400 })
   }
 
-  return NextResponse.json({ email })
+  // Hash password to store in db
+  //----------------------------------------------------------
+  const salt = await bcrypt.genSalt()
+  const hashedPassword = await bcrypt.hash(password, salt)
+
+  // Store user in db
+  //----------------------------------------------------------
+  const user = await prisma.user.create({
+    data: {
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      city,
+      password: hashedPassword,
+      phone,
+    },
+  })
+
+  const daysInSecs = 1 * 24 * 60 * 60
+  const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET as string, {
+    expiresIn: daysInSecs,
+  })
+
+  return NextResponse.json({ token })
 }
