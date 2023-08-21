@@ -25,7 +25,7 @@ function Header() {
 
         <form className="text-left text-lg py-3 m-auto flex justify-center" onSubmit={handleSubmit}>
           <input
-            className="rounded  mr-3 p-2 w-[450px]"
+            className="rounded  mr-3 p-2 w-full sm:w-[450px]"
             type="text"
             placeholder="State, city or town"
             value={location}
